@@ -46,6 +46,6 @@ class TechesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tech_params
-      params.require(:tech).permit(:title, :description, :category, :price, :cost, :user_id)
+      params.require(:tech).permit(:title, :description, :category, :price, :cost, :user_id, images: [])
     end
 end
