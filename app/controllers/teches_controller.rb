@@ -1,5 +1,5 @@
 class TechesController < ApplicationController
-  before_action :set_tech, only: %i[show update destroy favourited_count]
+  before_action :set_tech, only: %i[show update destroy]
 
   # GET /teches
   def index
@@ -10,13 +10,8 @@ class TechesController < ApplicationController
 
   # GET /teches/1
   def show
-    render json: @tech
-  end
-
-  def favourited_count
     @count = @tech.favourites.size
-
-    render json: {count: @count}
+    render json: {favourited_count: @count, tech: @tech}
   end
 
   # POST /teches
