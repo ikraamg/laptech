@@ -1,12 +1,12 @@
 class FavouritesController < ApplicationController
-  before_action :set_favourite, only: %i[show destroy]
+  before_action :set_favourite, only: %i[destroy]
 
   # GET /favourites
-  def index
-    @favourites = Favourite.all
+  # def index
+  #   @favourites = Favourite.all
 
-    render json: @favourites
-  end
+  #   render json: @favourites
+  # end
 
   def user_favourites
     @user_favourites = @user.favourite_teches
@@ -15,9 +15,9 @@ class FavouritesController < ApplicationController
   end
 
   # GET /favourites/1
-  def show
-    render json: @favourite
-  end
+  # def show
+  #   render json: @favourite
+  # end
 
   # POST /favourites
   def create
