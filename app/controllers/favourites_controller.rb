@@ -8,6 +8,12 @@ class FavouritesController < ApplicationController
     render json: @favourites
   end
 
+  def user_favourites
+    @user_favourites = @user.favourite_teches
+
+    render json: @user_favourites
+  end
+
   # GET /favourites/1
   def show
     render json: @favourite
