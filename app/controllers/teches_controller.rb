@@ -12,13 +12,13 @@ class TechesController < ApplicationController
   # GET /teches/1
   def show
     @count = @tech.favourites.size
-    render json: {favourited_count: @count, tech: @tech}
+    render json: { favourited_count: @count, tech: @tech }
   end
 
   # POST /teches
   def create
-
-    @tech = Tech.new(tech_params)
+    # @tech = Tech.new(tech_params)
+    @tech = @user.teches.build(tech_params)
 
     if @tech.save
       render json: @tech, status: :created, location: @tech
@@ -29,7 +29,6 @@ class TechesController < ApplicationController
 
   # PATCH/PUT /teches/1
   def update
-
     if @tech.update(tech_params)
       render json: @tech
     else
@@ -39,9 +38,8 @@ class TechesController < ApplicationController
 
   # DELETE /teches/1
   def destroy
-
     if @tech.destroy
-      render json: @tech
+      render json: { status: 'Delete success!', tech: @tech }
     else
       render json: 'failed to delete'
     end
@@ -51,8 +49,8 @@ class TechesController < ApplicationController
 
   def admin?
     unless @user.admin
-      render json: {"Admin Permissions Required"}, status: 403 
-      return 
+      render json: { error: 'Admin Permissions Required' }, status: 403
+      nil
     end
   end
 
