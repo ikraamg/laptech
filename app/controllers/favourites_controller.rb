@@ -1,5 +1,5 @@
 class FavouritesController < ApplicationController
-  before_action :set_favourite, only: %i[show update destroy]
+  before_action :set_favourite, only: %i[show destroy]
 
   # GET /favourites
   def index
@@ -31,17 +31,26 @@ class FavouritesController < ApplicationController
   end
 
   # PATCH/PUT /favourites/1
-  def update
-    if @favourite.update(favourite_params)
-      render json: @favourite
-    else
-      render json: @favourite.errors, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @favourite.update(favourite_params)
+  #     render json: @favourite
+  #   else
+  #     render json: @favourite.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /favourites/1
   def destroy
-    @favourite.destroy
+    unless @user === @favourite.user
+      render json: 'Favourite is not owned by user'
+      return 
+    end
+    
+    if @favourite.destroy
+      render json: {status: "deleted!", tech: @favourite}
+    else
+      render json: 'failed to delete'
+    end
   end
 
   private
