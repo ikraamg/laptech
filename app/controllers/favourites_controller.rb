@@ -42,7 +42,7 @@ class FavouritesController < ApplicationController
   # DELETE /favourites/1
   def destroy
     unless @user === @favourite.user
-      render json: 'Favourite is not owned by user'
+      render json: 'Favourite is not owned by user', status: 403
       return 
     end
     

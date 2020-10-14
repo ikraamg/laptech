@@ -1,5 +1,6 @@
 class TechesController < ApplicationController
   before_action :set_tech, only: %i[show update destroy]
+  before_action :admin?, only: %i[create update destroy]
 
   # GET /teches
   def index
@@ -16,7 +17,6 @@ class TechesController < ApplicationController
 
   # POST /teches
   def create
-    return unless @user.admin
 
     @tech = Tech.new(tech_params)
 
@@ -29,7 +29,6 @@ class TechesController < ApplicationController
 
   # PATCH/PUT /teches/1
   def update
-    return unless @user.admin
 
     if @tech.update(tech_params)
       render json: @tech
@@ -40,7 +39,6 @@ class TechesController < ApplicationController
 
   # DELETE /teches/1
   def destroy
-    return unless @user.admin
 
     if @tech.destroy
       render json: @tech
@@ -50,6 +48,13 @@ class TechesController < ApplicationController
   end
 
   private
+
+  def admin?
+    unless @user.admin
+      render json: {"Admin Permissions Required"}, status: 403 
+      return 
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_tech
