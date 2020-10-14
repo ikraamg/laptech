@@ -48,10 +48,10 @@ class TechesController < ApplicationController
   private
 
   def admin?
-    unless @user.admin
-      render json: { error: 'Admin Permissions Required' }, status: 403
-      nil
-    end
+    return if @user.admin
+
+    render json: { error: 'Admin Permissions Required' }, status: 403
+    nil
   end
 
   # Use callbacks to share common setup or constraints between actions.
