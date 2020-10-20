@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :routing do
   describe 'routing' do
-
     it 'routes to #auto_login' do
       expect(get: '/auto_login').to route_to('users#auto_login')
     end

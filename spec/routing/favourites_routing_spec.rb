@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe FavouritesController, type: :routing do
   describe 'routing' do
-
     it 'routes to #user_favourites' do
       expect(get: '/user_favourites').to route_to('favourites#user_favourites')
     end

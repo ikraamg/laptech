@@ -5,16 +5,16 @@ RSpec.describe '/favourites', type: :request do
   # Favourite. As you add validations to Favourite, be sure to
   # adjust the attributes here as well.
   let!(:autoUser) { create(:user) }
-  let!(:token) {JWT.encode({ user_id: autoUser.id }, 's3cr3t')}
+  let!(:token) { JWT.encode({ user_id: autoUser.id }, 's3cr3t') }
   let!(:autoTech) { create(:tech, user_id: autoUser.id) }
 
   let(:valid_attributes) do
     # skip('Add a hash of attributes valid for your model')
-    {'tech_id': autoTech.id, 'user_id': autoUser.id }
+    { 'tech_id': autoTech.id, 'user_id': autoUser.id }
   end
 
   let(:invalid_attributes) do
-    {'tech_id': '100', 'user_id': '100' }
+    { 'tech_id': '100', 'user_id': '100' }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -22,9 +22,8 @@ RSpec.describe '/favourites', type: :request do
   # FavouritesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}"}
+    { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}" }
   end
-
 
   describe 'GET /user_favourites' do
     it 'renders a successful response and returns the favourited tech' do
@@ -68,7 +67,6 @@ RSpec.describe '/favourites', type: :request do
       end
     end
   end
-
 
   describe 'DELETE /destroy' do
     it 'destroys the requested favourite' do

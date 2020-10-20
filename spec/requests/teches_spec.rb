@@ -13,29 +13,26 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/teches', type: :request do
-
   let!(:autoUser) { create(:user) }
-  let!(:token) {JWT.encode({ user_id: autoUser.id }, 's3cr3t')}
+  let!(:token) { JWT.encode({ user_id: autoUser.id }, 's3cr3t') }
 
   # This should return the minimal set of attributes required to create a valid
   # Tech. As you add validations to Tech, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    {"user_id": autoUser.id, "title": "API", "description": "helloooo", "category": "fish!", "price": '20', "cost": '30'}
+    { "user_id": autoUser.id, "title": "API", "description": "hey", "category": "fish!", "price": '20', "cost": '30' }
   end
 
   let(:invalid_attributes) do
-    {"user_id": '', "title": "", "description": "helloooo", "category": "fish!", "price": '20', "cost": '30'}
+    { "user_id": '', "title": "", "description": "helloooo", "category": "fish!", "price": '20', "cost": '30' }
   end
-
-  
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # TechesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}"}
+    { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}" }
   end
 
   describe 'GET /index' do
@@ -93,7 +90,7 @@ RSpec.describe '/teches', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        {"title": "APIdddd", "description": "nope"}
+        { "title": "APIdddd", "description": "nope" }
       end
 
       it 'updates the requested tech' do

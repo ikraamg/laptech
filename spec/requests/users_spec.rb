@@ -18,11 +18,11 @@ RSpec.describe '/users', type: :request do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     # skip('Add a hash of attributes valid for your model')
-    {username: 'test2', email: 'test2@gmail.com', password: '123456', admin: false}
+    { username: 'test2', email: 'test2@gmail.com', password: '123456', admin: false }
   end
 
   let(:invalid_attributes) do
-    {email: 'test2@gmail.com', password: '123456' , admin: false}
+    { email: 'test2@gmail.com', password: '123456', admin: false }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -30,22 +30,22 @@ RSpec.describe '/users', type: :request do
   # UsersController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {'Content-Type' => 'application/json'}
+    { 'Content-Type' => 'application/json' }
   end
 
   let!(:autoUser) { create(:user) }
-  let!(:token) {JWT.encode({ user_id: autoUser.id }, 's3cr3t')}
+  let!(:token) { JWT.encode({ user_id: autoUser.id }, 's3cr3t') }
 
   describe 'GET /auto_login' do
-    it 'cannot auto_login without a correct header' do      
+    it 'cannot auto_login without a correct header' do
       get '/auto_login', headers: {}, as: :json
       expect(response.body).to match(/Please log in/)
     end
 
-    it 'auto_login with a correct header results in user returned successfully' do   
-      req_headers = {'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}"}
+    it 'auto_login with a correct header results in user returned successfully' do
+      req_headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}" }
 
-      get '/auto_login', headers: req_headers, as: :json  
+      get '/auto_login', headers: req_headers, as: :json
       expect(response).to be_successful
       expect(ActiveSupport::JSON.decode(response.body)['id']).to eq(autoUser.id)
     end
@@ -56,13 +56,13 @@ RSpec.describe '/users', type: :request do
       it 'creates a new User' do
         expect do
           post '/users',
-               params: valid_attributes , headers: valid_headers, as: :json
+               params: valid_attributes, headers: valid_headers, as: :json
         end.to change(User, :count).by(1)
       end
 
       it 'renders a JSON response with the new user' do
         post '/users',
-             params:  valid_attributes , headers: valid_headers, as: :json
+             params: valid_attributes, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.body).to match(/test2/)
       end
@@ -72,16 +72,15 @@ RSpec.describe '/users', type: :request do
       it 'does not create a new User' do
         expect do
           post users_url,
-               params:  invalid_attributes , as: :json
+               params: invalid_attributes, as: :json
         end.to change(User, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new user' do
         post users_url,
-             params:  invalid_attributes , headers: valid_headers, as: :json
+             params: invalid_attributes, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to match(/Unable to create new user/)
-
       end
     end
   end

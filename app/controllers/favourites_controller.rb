@@ -1,5 +1,4 @@
 class FavouritesController < ApplicationController
-
   def user_favourites
     @user_favourites = @user.favourite_teches
 
