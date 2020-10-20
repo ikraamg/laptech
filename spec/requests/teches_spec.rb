@@ -20,11 +20,11 @@ RSpec.describe '/teches', type: :request do
   # Tech. As you add validations to Tech, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { "user_id": autoUser.id, "title": "API", "description": "hey", "category": "fish!", "price": '20', "cost": '30' }
+    { 'user_id': autoUser.id, 'title': 'API', 'description': 'hey', 'category': 'fish!', 'price': '20', 'cost': '30' }
   end
 
   let(:invalid_attributes) do
-    { "user_id": '', "title": "", "description": "helloooo", "category": "fish!", "price": '20', "cost": '30' }
+    { 'user_id': '', 'title': '', 'description': 'helloooo', 'category': 'fish!', 'price': '20', 'cost': '30' }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -37,7 +37,7 @@ RSpec.describe '/teches', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      tech = create(:tech, user_id: autoUser.id)
+      create(:tech, user_id: autoUser.id)
       get teches_url, headers: valid_headers, as: :json
       expect(response).to be_successful
       expect(ActiveSupport::JSON.decode(response.body)[0]['id']).to eq(autoUser.id)
@@ -90,7 +90,7 @@ RSpec.describe '/teches', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        { "title": "APIdddd", "description": "nope" }
+        { 'title': 'APIdddd', 'description': 'nope' }
       end
 
       it 'updates the requested tech' do
