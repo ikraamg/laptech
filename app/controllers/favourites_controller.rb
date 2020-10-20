@@ -20,15 +20,16 @@ class FavouritesController < ApplicationController
   # DELETE /favourites/1
   def destroy
 
-    unless @user == @favourite.user
-      render json: 'Favourite is not owned by user', status: 403
-      return
+    @favourite = Tech.find(params[:id]).favourites.where(user_id: @user.id).first
+    if @user != @favourite.user_id
+      render json: { error: 'Favourite is not owned by user'}, status: :forbidden
+      return 
     end
 
     if @favourite.destroy
       render json: { status: 'deleted!', tech: @favourite }
     else
-      render json: 'failed to delete'
+      render json: { error: 'failed to delete' }, status: :bad_request
     end
   end
 
