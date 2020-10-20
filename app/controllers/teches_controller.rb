@@ -17,7 +17,6 @@ class TechesController < ApplicationController
 
   # POST /teches
   def create
-    # @tech = Tech.new(tech_params)
     @tech = @user.teches.build(tech_params)
 
     if @tech.save
@@ -39,9 +38,9 @@ class TechesController < ApplicationController
   # DELETE /teches/1
   def destroy
     if @tech.destroy
-      render json: { status: 'Delete success!', tech: @tech }
+      render json: { message: 'Delete success!', tech: @tech }
     else
-      render json: 'failed to delete'
+      render json: { errors: 'failed to delete' }, status: :forbidden
     end
   end
 
@@ -50,7 +49,7 @@ class TechesController < ApplicationController
   def admin?
     return if @user.admin
 
-    render json: { error: 'Admin Permissions Required' }, status: 403
+    render json: { error: 'Admin Permissions Required' }, status: :forbidden
     nil
   end
 
