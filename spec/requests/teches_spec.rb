@@ -13,38 +13,46 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/teches', type: :request do
+
+  let!(:autoUser) { create(:user) }
+  let!(:token) {JWT.encode({ user_id: autoUser.id }, 's3cr3t')}
+
   # This should return the minimal set of attributes required to create a valid
   # Tech. As you add validations to Tech, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {"user_id": autoUser.id, "title": "API", "description": "helloooo", "category": "fish!", "price": '20', "cost": '30'}
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {"user_id": '', "title": "", "description": "helloooo", "category": "fish!", "price": '20', "cost": '30'}
   end
+
+  
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # TechesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
-    {}
+    {'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}"}
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Tech.create! valid_attributes
+      tech = create(:tech, user_id: autoUser.id)
       get teches_url, headers: valid_headers, as: :json
       expect(response).to be_successful
+      expect(ActiveSupport::JSON.decode(response.body)[0]['id']).to eq(autoUser.id)
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      tech = Tech.create! valid_attributes
-      get tech_url(tech), as: :json
+      tech = create(:tech, user_id: autoUser.id)
+      get tech_url(tech), headers: valid_headers, as: :json
       expect(response).to be_successful
+      expect(response.body).to match(/"id":#{tech.id}/)
     end
   end
 
@@ -61,7 +69,7 @@ RSpec.describe '/teches', type: :request do
         post teches_url,
              params: { tech: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(ActiveSupport::JSON.decode(response.body)['id']).to eq(autoUser.id)
       end
     end
 
@@ -77,7 +85,7 @@ RSpec.describe '/teches', type: :request do
         post teches_url,
              params: { tech: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.body).to match(/can't be blank/)
       end
     end
   end
@@ -85,40 +93,39 @@ RSpec.describe '/teches', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {"title": "APIdddd", "description": "nope"}
       end
 
       it 'updates the requested tech' do
-        tech = Tech.create! valid_attributes
+        tech = create(:tech, user_id: autoUser.id)
         patch tech_url(tech),
-              params: { tech: invalid_attributes }, headers: valid_headers, as: :json
+              params: { tech: new_attributes }, headers: valid_headers, as: :json
         tech.reload
-        skip('Add assertions for updated state')
+        expect(response).to have_http_status(:ok)
       end
 
       it 'renders a JSON response with the tech' do
-        tech = Tech.create! valid_attributes
+        tech = create(:tech, user_id: autoUser.id)
         patch tech_url(tech),
-              params: { tech: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+              params: { tech: new_attributes }, headers: valid_headers, as: :json
+        expect(response.body).to match(/nope/)
       end
     end
 
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the tech' do
-        tech = Tech.create! valid_attributes
+        tech = create(:tech, user_id: autoUser.id)
         patch tech_url(tech),
               params: { tech: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.body).to match(/can't be blank/)
       end
     end
   end
 
   describe 'DELETE /destroy' do
     it 'destroys the requested tech' do
-      tech = Tech.create! valid_attributes
+      tech = create(:tech, user_id: autoUser.id)
       expect do
         delete tech_url(tech), headers: valid_headers, as: :json
       end.to change(Tech, :count).by(-1)

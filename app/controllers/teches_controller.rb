@@ -5,7 +5,6 @@ class TechesController < ApplicationController
   # GET /teches
   def index
     @teches = Tech.all
-
     render json: @teches
   end
 
