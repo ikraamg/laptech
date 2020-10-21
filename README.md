@@ -48,10 +48,13 @@ The front-end can be found [here](https://github.com/ikraamg/techStore)
 - Users can view list of technology items and click to view full details.
 - Users can favourite items and view a list of favourites
 
-## [API](./doc/API.md)
+## API
 
 Local Base URL is the url of the rails server, usually <http://localhost:3000>
 The deployed base Url: <https://tech-store-rails.herokuapp.com>
+
+You can run all the commands in postman, the base url needs to be altered for the requests when needed:
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/864ada94eaa937d45450)
 
 ### [Link to full API docs](./doc/API.md)
 
