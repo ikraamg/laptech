@@ -87,7 +87,7 @@ The app was test with rspec and factoryBot and shoulda-matchers.
 rspec
 ```
 
-## "Nice To Have Requirements" that is Implemented
+## "Nice To Have Requirements" that are implemented
 
 - Dark Mode via toggle
 - Implement proper user authentication from the front-end to the server
