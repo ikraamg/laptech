@@ -6,9 +6,9 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/ikraamg/laptech.git">
-    <p align="center"> <img src="https://user-images.githubusercontent.com/34813339/96689545-d0853880-1382-11eb-9371-9755f41a55b1.png" alt="react-redux" height="500">
-    <img src="https://user-images.githubusercontent.com/34813339/96697115-d4698880-138b-11eb-944e-c004fff033f5.png" alt="react-redux" height="500"></p>
+  <a href="https://github.com/ikraamg/techStore.git">
+    <p align="center"> <img src="https://user-images.githubusercontent.com/34813339/96832600-4d75e800-143f-11eb-811b-bf58741c4c45.gif" alt="laptech" height="500">
+    </p>
   </a>
 
   <h3 align="center">Tech favourites - Full-Stack Rails and React APP </h3>
@@ -61,7 +61,7 @@ You can run all the commands in postman, the base url needs to be altered for th
 ## ERD for Rails database
 
 <p align="center">
-  <a href="./doc/Techy.png"> <img src="./doc/Techy.png" alt="react-redux" height="350">
+  <a href="./doc/Techy.png"> <img src="./doc/Techy.png" alt="laptech" height="350">
   </a>
 </p>
 
@@ -92,12 +92,12 @@ rspec
 
 ## "Nice To Have Requirements" that are implemented
 
+- Implemented proper user authentication from the front-end to the server
+- Created a user table in the database, so that a given user can only access the favourites they selected
+- Made the app responsive, creating both tablet and desktop versions, following design guidelines
+- Transitions were implemented to make the user experience better
+- Created full documentation for the API
 - Dark Mode via toggle
-- Implement proper user authentication from the front-end to the server
-- Create a user table in your database, so that a given user could only access the favourites they selected
-- Make the app responsive, creating both tablet and desktop versions, following design guidelines
-- You could implement transitions to make the user experience better
-- Create full documentation for your API
 
 ## Potential Updates
 
@@ -126,13 +126,13 @@ Design influenced by [Alexey Savitskiy on Behance](https://www.behance.net/alexe
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/ikraamg/react-redux.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/ikraamg/laptech.svg?style=flat-square
 [contributors-url]: https://github.com/ikraamg/laptech/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ikraamg/react-redux.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/ikraamg/laptech.svg?style=flat-square
 [forks-url]: https://github.com/ikraamg/laptech/network/members
-[stars-shield]: https://img.shields.io/github/stars/ikraamg/react-redux.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/ikraamg/laptech.svg?style=flat-square
 [stars-url]: https://github.com/ikraamg/laptech/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ikraamg/react-redux.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/ikraamg/laptech.svg?style=flat-square
 [issues-url]: https://github.com/ikraamg/laptech/issues
 
 ## 📝 License
