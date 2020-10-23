@@ -46,8 +46,7 @@ RSpec.describe '/users', type: :request do
       req_headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{token}" }
 
       get '/auto_login', headers: req_headers, as: :json
-      expect(response).to be_successful
-      expect(ActiveSupport::JSON.decode(response.body)['id']).to eq(autoUser.id)
+      expect(ActiveSupport::JSON.decode(response.body)['user']['id']).to eq(autoUser.id)
     end
   end
 
